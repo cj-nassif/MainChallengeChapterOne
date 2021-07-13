@@ -1,5 +1,6 @@
 import React from 'react';
-import { FlatList, Image, TouchableOpacity, View, Text, StyleSheet, FlatListProps } from 'react-native';
+import { FlatList } from 'react-native';
+import { EditTaskArgs } from '../pages/Home';
 
 
 import { ItemWrapper } from './ItemWrapper';
@@ -18,9 +19,11 @@ interface TasksListProps {
   tasks: Task[];
   toggleTaskDone: (id: number) => void;
   removeTask: (id: number) => void;
-  editTask: (id: number, title: string) => void;
-
+  editTask: ({ taskId, taskNewTitle }: EditTaskArgs) => void;
 }
+
+
+
 
 export function TasksList({ tasks, toggleTaskDone, removeTask, editTask }: TasksListProps) {
   return (
@@ -33,8 +36,7 @@ export function TasksList({ tasks, toggleTaskDone, removeTask, editTask }: Tasks
         return (
           <ItemWrapper index={index}>
             <TaskItem
-              index={index}
-              item={item}
+              task={item}
               toggleTaskDone={toggleTaskDone}
               removeTask={removeTask}
               editTask={editTask}

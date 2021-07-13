@@ -5,6 +5,11 @@ import { Header } from '../components/Header';
 import { Task, TasksList } from '../components/TasksList';
 import { TodoInput } from '../components/TodoInput';
 
+export type EditTaskArgs = {
+  taskId: number;
+  taskNewTitle: string;
+}
+
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -54,12 +59,13 @@ export function Home() {
     //TODO - remove task from state
   }
 
-  function handleEditTask(taskId: number, taskNewTitle: string) {
+  function handleEditTask({ taskId, taskNewTitle }: EditTaskArgs) {
     const updatedTasks = tasks.map(task => ({ ...task }))
     const findTitle = updatedTasks.find(task => task.id === taskId)
     if (!findTitle)
       return;
-    findTitle.title = taskNewTitle
+    findTitle.title = taskNewTitle;
+    setTasks(updatedTasks)
   }
 
   return (
